@@ -2,7 +2,7 @@ import React from "react";
 
 const CategoryMenu = () => {
   return (
-    <div className="px-8 my-3">
+    <div className="px-10 sm:mx-2 my-3">
       <h1 className=" font-[cursive] font-bold text-teal-500 text-lg">
         Find The <span className="text-orange-500">Best </span>Food
       </h1>
