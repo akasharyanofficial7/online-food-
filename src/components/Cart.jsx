@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { IoCart } from "react-icons/io5";
 import ItemCard from "./ItemCard";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const [activeCart, setActiveCart] = useState(false);
   const cartItems = useSelector((state) => state.cart.cart);
 
@@ -14,6 +15,27 @@ const Cart = () => {
     (totalPrice, item) => totalPrice + item.qty * item.price,
     0
   );
+
+  const handleClickSuccess = () => {
+    navigate("/success");
+  };
+
+  // const handleClickError = () => {
+  //   navigate("/error");
+  // };
+
+  const handleClickErrorCart = () => {
+    navigate("/errorCart");
+  };
+
+  const handleCheckout = () => {
+    if (cartItems.length > 0) {
+      handleClickSuccess();
+    } else {
+      handleClickErrorCart();
+    }
+  };
+
   return (
     <>
       <div
@@ -44,7 +66,7 @@ const Cart = () => {
               />
             ))
           ) : (
-            <span className="text-gray-700 font-semibold text-center text-lg  pl-10">
+            <span className="text-gray-700 font-semibold text-center text-lg pl-10">
               Cart is Empty
             </span>
           )}
@@ -60,7 +82,10 @@ const Cart = () => {
           <h3 className="text-lg mb-4">Total Amount: ${totalPrice}</h3>
           <hr className="my-4" />
 
-          <button className="bg-teal-600 text-white rounded-lg p-2 w-full hover:bg-teal-800 transition duration-300 ease-in-out">
+          <button
+            onClick={handleCheckout}
+            className="bg-teal-600 text-white rounded-lg p-2 w-full hover:bg-teal-800 transition duration-300 ease-in-out"
+          >
             Checkout
           </button>
         </div>

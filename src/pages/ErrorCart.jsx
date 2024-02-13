@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { PulseLoader } from "react-spinners";
 
-const Success = () => {
+const ErrorCart = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -18,10 +18,11 @@ const Success = () => {
           <PulseLoader color="gray" />
         ) : (
           <>
-            <h1 className="text-3xl font-bold text-green-600 mb-4">Success</h1>
-            <p className="text-lg text-gray-700">
-              Congratulations! Your action was successful.
-            </p>
+            <h1 className="text-3xl font-bold text-gray-600 mb-4">
+              {" "}
+              You did not select any item
+            </h1>
+            <p className="text-lg text-gray-700 font-bold">Please add items</p>
           </>
         )}
       </div>
@@ -29,4 +30,4 @@ const Success = () => {
   );
 };
 
-export default Success;
+export default ErrorCart;
