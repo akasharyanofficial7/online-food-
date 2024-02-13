@@ -8,17 +8,14 @@ const Navbar = () => {
 
   return (
     <nav className="flex items-center justify-between px-4 py-2   bg-white shadow-lg fixed top-0 w-full z-10">
-      {/* Left side of the navbar */}
       <div className="flex items-center">
         <img src={logo} className="h-10 mr-2" alt="Logo" />
         <h3 className="text-gray-700 font-bold text-lg">foodie</h3>
       </div>
-
-      {/* Right side of the navbar */}
       <div className="flex">
         <input
           type="text"
-          className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-blue-500"
+          className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-blue-500 w-full lg:w-64"
           placeholder="Search for food..."
           onChange={(e) => dispatch(setSearch(e.target.value))}
         />
