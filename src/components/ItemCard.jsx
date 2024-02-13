@@ -1,36 +1,47 @@
 import React from "react";
-import { IoMdAdd } from "react-icons/io";
-import { FaMinus } from "react-icons/fa6";
+import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import {
+  removeFromCart,
+  incrementQty,
+  decrementQty,
+} from "../redux/slices/CartSlice";
+import { toast } from "react-hot-toast";
 
-const ItemCard = ({ price, img, qty, id, name }) => {
+const ItemCard = ({ id, name, qty, price, img }) => {
+  const dispatch = useDispatch();
+
   return (
-    <div className="relative overflow-hidden  rounded-lg  shadow-lg flex justify-between mx-auto max-w-md my-2  ">
-      <img
-        src={img}
-        alt=""
-        className="object-cover w-fit h-8 sm:w-fit sm:h-14 mx-4 rounded-t-lg cursor-grab hover:scale-110 transition-all duration-500 ease-in-out"
+    <div className="flex gap-2 shadow-md rounded-lg p-2 mb-3">
+      <MdDelete
+        onClick={() => {
+          dispatch(removeFromCart({ id, img, name, price, qty }));
+          toast(`${name} Removed!`, {
+            icon: "👋",
+          });
+        }}
+        className="absolute right-7 text-gray-600 cursor-pointer"
       />
-      <div className="p-1 bg-white">
-        <span className="flex justify-between pr-2">
-          <span className="text-black  mb-1 pl-2 font-sans font-semibold text-left text-sm">
-            {name}
-          </span>
-          <MdDelete className="h-5 m-2" />
-        </span>
-        <div className="flex items-center">
-          <span className="text-black font-semibold text-sm mr-4">
-            <span className="text-gray-600">₹</span>
-            {price}
-          </span>
-          <div className="flex space-x-4 mr-4">
-            <button className="text-green-500 p-1 rounded-lg border border-green-500 hover:bg-green-100 transition duration-300">
-              <IoMdAdd className="text-sm" />
-            </button>
-            <span className="border border-gray-40 p-1 rounded-lg">{qty}</span>
-            <button className="text-red-500  p-1 rounded-lg border border-red-500 hover:bg-red-100 transition duration-300">
-              <FaMinus className="text-sm" />
-            </button>
+      <img src={img} alt="" className="w-[50px] h-[50px] " />
+      <div className="leading-5">
+        <h2 className="font-bold text-gray-800">{name}</h2>
+        <div className="flex justify-between ">
+          <span className="text-green-500 font-bold">₹{price}</span>
+          <div className="flex justify-center items-center gap-2 absolute right-7">
+            <AiOutlineMinus
+              onClick={() =>
+                qty > 1 ? dispatch(decrementQty({ id })) : (qty = 0)
+              }
+              className="border-2 border-gray-600 text-gray-600 hover:text-white hover:bg-green-500 hover:border-none rounded-md p-1 text-xl transition-all ease-linear cursor-pointer"
+            />
+            <span>{qty}</span>
+            <AiOutlinePlus
+              onClick={() =>
+                qty >= 1 ? dispatch(incrementQty({ id })) : (qty = 0)
+              }
+              className="border-2 border-gray-600 text-gray-600 hover:text-white hover:bg-green-500 hover:border-none rounded-md p-1 text-xl transition-all ease-linear cursor-pointer"
+            />
           </div>
         </div>
       </div>

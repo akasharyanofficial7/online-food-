@@ -1,32 +1,35 @@
 import React from "react";
-import { FaStar } from "react-icons/fa6";
+import { AiFillStar } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/slices/CartSlice";
-const FoodCard = ({ id, name, price, img, desc, rating }) => {
+
+const FoodCard = ({ id, name, price, desc, img, rating, hotToast }) => {
   const dispatch = useDispatch();
+
   return (
-    <div className="w-[230px]  rounded-lg   mx-6 bg-white p-3 flex flex-col gap-4">
+    <div className="font-bold w-[250px] bg-white p-5 flex flex-col rounded-lg gap-2">
       <img
         src={img}
-        className=" w-auto h-[150px] cursor-grab hover:scale-110  transition-all duration-500 ease-in-out"
+        alt=""
+        className="w-auto h-[130px]  hover:scale-110 cursor-grab transition-all duration-500 ease-in-out "
       />
-
       <div className="text-sm flex justify-between">
-        <h2 className="font-bold"> {name}</h2>
-        <span className="text-teal-500 font-bold">₹{price}</span>
+        <h2>{name}</h2>
+        <span className="text-green-500 ">₹{price}</span>
       </div>
-      <p>{desc.slice(0, 50)}.. </p>
-      <div className="text-black flex justify-between ">
-        <span className="  flex justify-between items-center p-1">
-          <FaStar className="text-yellow-600 " /> {rating}
+      <p className="text-sm font-normal">{desc.slice(0, 50)}...</p>
+      <div className="flex justify-between ">
+        <span className="flex justify-center items-center">
+          <AiFillStar className="mr-1 text-yellow-400" /> {rating}
         </span>
         <button
           onClick={() => {
-            dispatch(addToCart({ id, name, price, qty: 1, rating, img }));
+            dispatch(addToCart({ id, name, rating, price, img, qty: 1 }));
+            hotToast(name);
           }}
-          className="p-1 mx-2 text-white bg-teal-500 hover:bg-teal-700  rounded-lg text-sm font-bold"
+          className="p-1 text-white bg-green-500 hover:bg-green-600 rounded-lg text-sm"
         >
-          Add To Cart
+          Add to cart
         </button>
       </div>
     </div>

@@ -1,20 +1,26 @@
 import React from "react";
 import logo from "../assets/logo.png";
+import { useDispatch } from "react-redux";
+import { setSearch } from "../redux/slices/SearchSlices";
+
 const Navbar = () => {
+  const dispatch = useDispatch();
+
   return (
-    <nav className="flex flex-col lg:flex-row justify-between items-center p-2   border-b-2 border-gray-500  text-black sticky">
+    <nav className="flex items-center justify-between px-4 py-2   bg-white shadow-lg fixed top-0 w-full z-10">
+      {/* Left side of the navbar */}
       <div className="flex items-center">
-        <h3 className="text-gray-500 font-bold text-xl mr-2">
-          {new Date().toUTCString().slice(0, 16)}
-        </h3>
-        <img src={logo} className="h-12" alt="Logo" />
+        <img src={logo} className="h-10 mr-2" alt="Logo" />
+        <h3 className="text-gray-700 font-bold text-lg">foodie</h3>
       </div>
 
-      <div className="mt-3  lg:mt-0 ">
+      {/* Right side of the navbar */}
+      <div className="flex">
         <input
           type="text"
-          className="border rounded-md p-2 focus:outline-none focus:border-blue-500 w-full lg:w-[500px]"
-          placeholder="Enter text"
+          className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-blue-500"
+          placeholder="Search for food..."
+          onChange={(e) => dispatch(setSearch(e.target.value))}
         />
       </div>
     </nav>
